@@ -21,16 +21,25 @@ function checkEmptyValue(value,errorId){
  }
  //hàm kiểu tra số lượng ký tự
  function checkMinMaxValue(value,errorId,min,max){
-    var doDaiKyTu = value.trim().length()
-    if(doDaiKyTu >min && doDaiKyTu<max){
+    var doDaiKyTu = value.trim().length
+    if(doDaiKyTu >= min && doDaiKyTu <= max){
         document.getElementById(errorId).innerHTML=''
         return true
     }else{
         document.getElementById(errorId).innerHTML=`Vui lòng nhập dữ liệu trong khoản ${min} ký tự và ${max} ký tự`
         return false
     }
-
  }
-
+function checkPasswork(value,errorId,){
+    var regexPasswork=/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/
+    var checkPasswork = regexPasswork.macth(value)
+    if(checkPasswork){
+        document.getElementById(errorId).innerHTML=''
+        return true
+    }else{
+        document.getElementById(errorId).innerHTML='Vui lòng nhập đúng định dạng passwork'
+        return false
+    }
+}
 
  

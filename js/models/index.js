@@ -9,16 +9,29 @@ function getValueUser(){
     var nhanVien = new NhanVien
     var isValid = true
     for(var i = 0;i< arrInput.length;i++){
-        if(arrInput[i].id == 'email'){
+        var inputValue = arrInput[i].value
+        var errorId = arrError[i].id
+        var inputId = arrInput[i].id
+        if(inputId == 'email'){
             isValid &=
-            checkEmptyValue(arrInput[i].value,arrError[i].id) && checkEmailValue(arrInput[i].value,arrError[i].id)
+            checkEmptyValue(inputValue,errorId) && checkEmailValue(inputValue,errorId)
+        }else if(inputId == 'tknv'){
+            isValid &=
+            checkEmptyValue(inputValue,errorId) && checkMinMaxValue(inputValue,errorId,4,6)
+        }else if(inputId == 'passwork'){
+            isValid &=
+            checkEmptyValue(inputValue,errorId) && checkMinMaxValue(inputValue,errorId,4,6)
+        }
+        else if(inputId == 'passwork'){
+            isValid &=
+            checkEmptyValue(inputValue,errorId) && 
+            checkPasswork(inputId,errorId,6,10)
         }else{
-            isValid &= checkEmptyValue(arrInput[i].value,arrError[i].id)
+            isValid &= checkEmptyValue(inputValue,errorId)
 
         }
-
-        var id = arrInput[i].id
-        nhanVien[id] = arrInput[i].value
+        var id = inputId
+        nhanVien[id] = inputValue
     }
     if(isValid){
     return nhanVien
