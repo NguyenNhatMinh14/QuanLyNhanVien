@@ -1,31 +1,42 @@
 // Lấy dữ liệu từ input
 arrNhanVien=[]
-function getValueUser(){
+function getValueUser(){        
     var arrInput = document.querySelectorAll('form input,form select')
     console.log(arrInput)
     var arrError = document.querySelectorAll('form span.text-danger')
     console.log(arrError)
     // Chạy vòng lặp để lấy dữ liệu
     var nhanVien = new NhanVien
+    var isValid = true
     for(var i = 0;i< arrInput.length;i++){
-        checkEmptyValue(arrInput[i].value,arrError[i].id)
+        if(arrInput[i].id == 'email'){
+            isValid &=
+            checkEmptyValue(arrInput[i].value,arrError[i].id) && checkEmailValue(arrInput[i].value,arrError[i].id)
+        }else{
+            isValid &= checkEmptyValue(arrInput[i].value,arrError[i].id)
+
+        }
 
         var id = arrInput[i].id
         nhanVien[id] = arrInput[i].value
     }
+    if(isValid){
     return nhanVien
+    }
 }
 document.getElementById('btnThemNV').onclick= function(){
     //lấy dữ liệu 
     var nhanVien = getValueUser()
-    //push dữ liệu nhân viên vào mảng
-    arrNhanVien.push(nhanVien)
-    console.log(arrNhanVien)
-    //xóa các dữ liệu đang có trên form
-    document.getElementById('formQLNV').reset()
-    //lưu trữ dữ liệu xuống local 
-    luuDuLieu('arrNhanVien',arrNhanVien)
-    hienThiDuLieu();
+    if(nhanVien){
+        //push dữ liệu nhân viên vào mảng
+        arrNhanVien.push(nhanVien)
+        console.log(arrNhanVien)
+        //xóa các dữ liệu đang có trên form
+        document.getElementById('formQLNV').reset()
+        //lưu trữ dữ liệu xuống local 
+        luuDuLieu('arrNhanVien',arrNhanVien)
+        hienThiDuLieu();
+    }
 }
 // Hiển thị lên table
 function hienThiDuLieu(arr){

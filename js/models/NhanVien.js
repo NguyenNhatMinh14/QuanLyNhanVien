@@ -39,5 +39,4 @@ function NhanVien(){
         }
         return xepLoai
     }
-    
 }
